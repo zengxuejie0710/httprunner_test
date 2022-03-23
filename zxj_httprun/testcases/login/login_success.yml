@@ -4,6 +4,7 @@ config:
     variables:
         user: ${ENV(user)}
         psw: ${ENV(psw)}
+
     export:
     - token
 
