@@ -11,7 +11,7 @@ config:
           user-psw-code-msg-len_token: ${P(zxj_httprun/data/sign.csv)}
 
 teststeps:
--
+-x`
     name: sign登录成功
     setup_hooks:
         - ${setup_request($request)}
