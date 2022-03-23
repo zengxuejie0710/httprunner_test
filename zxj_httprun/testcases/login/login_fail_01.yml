@@ -1,0 +1,27 @@
+config:
+    name: 登录接口-输入错误的账号密码,返回正确
+    base_url: ${ENV(base_url)}
+    variables:
+        user: ${ENV(user)}
+        psw: ${ENV(psw)}
+    parameters:
+      user-psw-email:
+      - ["tt","123456",""]
+      - ["","123456",""]
+      - ["test","123455","1672728@qq.com"]
+
+teststeps:
+-
+    name: 登录失败,提示正确
+    request:
+        url: /api/v1/login
+        method: POST
+        json:
+            username: $user
+            password: $psw
+            email: ""
+
+    validate:
+        - eq: [status_code, 200]
+        - eq: [body.code, 3003]
+        - len_eq: [body.token, 0]

@@ -1,0 +1,27 @@
+config:
+    name: 注册一个没有注册过的用户，注册成功
+    base_url: ${ENV(base_url)}
+#    base_url: http://49.235.92.12:8201
+    parameters:
+         user-psw-email:
+         - ["tt","123456","108888778@qq.com"]
+         - ["tt11111111111111111111111111111111111111111111111111111111","123456","108888778@qq.com"]
+         - ["${register_user()}","123456","12345"]
+         - [" ","123456","108888778@qq.com"]
+         - ["${register_user()}"," ","108888778@qq.com"]
+
+
+teststeps:
+-
+    name: step-注册
+    request:
+        url: /api/v1/register
+        method: POST
+        json:
+            username: $user
+            password: $psw
+            email: ""
+    validate:
+        - eq: [body.code, 3003]
+        - eq: [body.msg, 参数不合法]
+

@@ -1,0 +1,23 @@
+config:
+    name: 登录接口-sign不合法
+    base_url: ${ENV(base_url)}
+    variables:
+      user: ${ENV(user)}
+      psw: ${ENV(psw)}
+
+teststeps:
+-
+    name: sign不合法
+    request:
+        url: /api/v3/login
+        method: POST
+        json:
+            username: $user
+            password: $psw
+            sign: x
+
+    validate:
+        - eq: [status_code, 200]
+        - eq: [body.msg, sign签名不合法]
+        - eq: [body.code, 3005]
+        - len_eq: [body.token, 0]

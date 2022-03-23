@@ -1,0 +1,36 @@
+config:
+    name: 注册重复用户
+    base_url: ${ENV(base_url)}
+#    base_url: http://49.235.92.12:8201
+    parameters:
+         user-psw-email:
+         - ["zxjzxj03","123456","108888778@qq.com"]
+
+teststeps:
+-
+    name: 先注册新用户
+    request:
+        url: /api/v1/register
+        method: POST
+        json:
+            username: $user
+            password: $psw
+            email: ""
+    validate:
+        - eq: [body.code, 0]
+        - eq: [body.msg, register success!]
+
+-
+    name: 用户已被注册
+    request:
+      url: /api/v1/register
+      method: POST
+      json:
+        username: $user
+        password: $psw
+        email: ""
+    validate:
+      - eq: [body.code, 2000]
+      - eq: [body.msg, zxjzxj03用户已被注册]
+
+

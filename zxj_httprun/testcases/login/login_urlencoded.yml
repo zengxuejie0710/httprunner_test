@@ -1,0 +1,27 @@
+config:
+    name: 登录接口-输入正确账号密码,登录成功
+    base_url: ${ENV(base_url)}
+    variables:
+      user: ${ENV(user)}
+      psw: ${ENV(psw)}
+
+    export:
+        - token
+teststeps:
+-
+    name: 登录成功
+    request:
+        url: /api/v4/login
+        method: POST
+        #json改为data
+        data:
+            username: $user
+            password: $psw
+        extract:
+            token: body.token
+    validate:
+        - eq: [status_code, 200]
+        - eq: [body.msg, login success!]
+        - eq: [body.code, 0]
+        - eq: [body.username, $user]
+        - len_eq: [body.token, 40]

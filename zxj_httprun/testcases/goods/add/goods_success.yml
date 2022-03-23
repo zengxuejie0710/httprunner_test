@@ -1,0 +1,33 @@
+config:
+  name: 新增商品接口-新增成功
+  base_url: ${ENV(base_url)}
+
+teststeps:
+-
+    name: 登录账号
+    #testcase包创建时需要是python package
+    testcase: testcases/login/login_success.yml
+-
+    name: 新增商品
+    request:
+      url: /api/v2/goods
+      method: POST
+      #添加上个用例返回的token
+      headers:
+        Authorization: Token $token
+      json:
+        goodsname: 第一次添加
+        goodscode: sp商品8个字段够了吗
+        merchantid: 100222
+        merchantname: 商品的名称测试使用
+        goodsprice : 90
+        stock: 2000
+        goodsgroupid: 2
+        price: 20
+        goodsstatus: 1
+
+    validate:
+        - eq: [body.code,0]
+        - eq: [body.msg,success!]
+
+

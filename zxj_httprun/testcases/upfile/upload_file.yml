@@ -1,0 +1,22 @@
+config:
+  name: 上传文件
+  base_url: ${ENV(base_url)}
+  variables:
+    filename: data/hrun3.png
+    titlename: itlename
+  parameters:
+    file-title:
+    - [data/hrun3.png,"zxj",0, success!]
+    - [data/hrun3.jpg,"zxj",0, success!]
+teststeps:
+-
+  name: 上传成功
+  request:
+    url: /api/v1/upfile/
+    method: POST
+    upload:
+      file: $filename
+      title: $titlename
+  varidate:
+    - eq: [ body.code, 0 ]
+    - eq: [ body.msg, success! ]
