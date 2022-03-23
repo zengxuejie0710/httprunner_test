@@ -8,7 +8,7 @@ config:
       msg: login success!
       len_token: 40
     parameters:
-          user-psw-code-msg-len_token: ${P(zxj_httprun/data/sign.csv)}
+          user-psw-code-msg-len_token: ${P(/zxj_httprun/data/sign.csv)}
 
 teststeps:
 -x`
